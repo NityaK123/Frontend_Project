@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Shop from '../components/Shop'
-import { fetchData } from '../services/fetchData'
-import processData from '../services/monthlyRewardsData'
+import { fetchData } from '../services/fetchData';
+import processData from '../services/monthlyRewardsData';
+import MonthlyRewards from '../components/MonthlyRewards';
+import {TotalRewardsPoint } from '../services/totalRewards';
+import TotalRewards from '../components/TotalRewardsData';
 
 const Home = () => {
 
@@ -9,6 +12,7 @@ const Home = () => {
     const [error, setError] = useState()
     const [transactionData, setTransactionData] = useState()
     const [monthlyData,setMonthlyData] = useState()
+    const [totalRewardsData,setTotalRewardsData] = useState()
 
 
     useEffect(() => {
@@ -19,12 +23,11 @@ const Home = () => {
                 const data = await fetchData()
                 setTransactionData(data)
 
+                const threeMonthlyData = await processData()
+                setMonthlyData(threeMonthlyData)
 
-            //     console.log("Three")
-            //    // const threeMonthlyData = await processData()
-            //     console.log("Three of")
-            //     console.log("Three Month", threeMonthlyData)
-            //     setMonthlyData(threeMonthlyData)
+                const totalRewardData = await TotalRewardsPoint()
+                setTotalRewardsData(totalRewardData)
             }
             catch(error) {
                 console.log("error",error)
@@ -35,16 +38,18 @@ const Home = () => {
             }
         }
         transData()
-    }, [])
+    },[])
 
     if (isLoding)return <h1>Loding....</h1> 
-    if (error)return <>This is error off</>
+    if (error)return <div>{error}</div>
 
     return (
         <div>
             <Shop data={transactionData} />
+            <MonthlyRewards data ={monthlyData}/>
+            <TotalRewards data={totalRewardsData}/>
         </div>
     )
 }
 
-export default Home
+export default Home;
