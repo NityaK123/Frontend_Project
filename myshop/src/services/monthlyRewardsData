@@ -1,0 +1,74 @@
+import { fetchData } from "./fetchData"
+
+const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+async function processData(){
+
+    try {
+        const monthlyData = await fetchData() 
+
+        console.log("monthData", monthlyData)
+        
+        // const addPriceOfThreeMonthData = monthlyData.reduce((acc, val) => {
+        //     const purchaseDate = new Date(val.purchaseDate);
+        //     const key = `${val.customerId}_${purchaseDate})`
+
+        //     if (acc[key]) {
+        //         acc[key].totalPrice = acc[key].totalPrice + val.price
+        //     }
+        //     else {
+        //         acc[key] = {
+        //             transactionId: val.transactionId,
+        //             customerId: val.customerId,
+        //             customerName: val.customerName,
+        //             month: (new Date(val.purchaseDate)).getMonth(),
+        //             totalPrice: val.price,
+        //             purchaseYear: (new Date(val.purchaseDate)).getFullYear()
+        //         }
+        //     }
+        //     return acc
+        // }, {}) 
+
+        const monthlyRewardsData = monthlyData.reduce((acc,val) => {
+            // Create a new Date object once for reuse
+            const purchaseDate = new Date(val.purchaseDate);
+            const customerKey = `${val.customerId}_${purchaseDate.getMonth()}_${purchaseDate.getFullYear()}`;
+      
+            if (acc[customerKey]) {
+              acc[customerKey].totalPrice += val.price;
+            } else {
+              acc[customerKey] = {
+                customerName: val.customerName,
+                customerId: val.customerId,
+                totalPrice: val.price,
+                transactionId: val.transactionId,
+                purchaseMonth: monthNames[purchaseDate.getMonth()],
+                purchaseYear: purchaseDate.getFullYear(),
+                date: val.purchaseDate,
+              };
+            }
+            return acc;
+          }, {});
+
+        return Object.values(monthlyRewardsData) 
+    }
+    
+    catch(error){
+        console.log("Procees Data",error)
+    }
+}
+
+export default processData
