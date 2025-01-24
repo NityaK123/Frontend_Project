@@ -6,6 +6,7 @@ import MonthlyRewards from '../components/MonthlyRewards';
 import {TotalRewardsPoint } from '../services/totalRewards';
 import TotalRewards from '../components/TotalRewardsData';
 import { calculateThreeMonthData } from '../utils/calculateThreeMonthData';
+import logger from '../logger';
 
 const Home = () => {
 
@@ -32,7 +33,7 @@ const Home = () => {
                 setTotalRewardsData(totalRewardData)
             }
             catch(error) {
-                console.log("error",error)
+                logger.Message(error)
                 setError("This is error")
             }
             finally {

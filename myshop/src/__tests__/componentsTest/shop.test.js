@@ -29,4 +29,8 @@ describe("Test Shop",()=>{
          expect(element).toBeInTheDocument() 
     })
 
+    test("Test case 2",()=>{
+         const element = screen.getByText(/Rewards Point/i)
+         expect(element).toBeInTheDocument() 
+    })
 }) 
