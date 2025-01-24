@@ -5,6 +5,7 @@ import processData from '../services/monthlyRewardsData';
 import MonthlyRewards from '../components/MonthlyRewards';
 import {TotalRewardsPoint } from '../services/totalRewards';
 import TotalRewards from '../components/TotalRewardsData';
+import { calculateThreeMonthData } from '../utils/calculateThreeMonthData';
 
 const Home = () => {
 
@@ -24,7 +25,8 @@ const Home = () => {
                 setTransactionData(data)
 
                 const threeMonthlyData = await processData()
-                setMonthlyData(threeMonthlyData)
+                const lastThreeMonthData = calculateThreeMonthData(threeMonthlyData)
+                setMonthlyData(lastThreeMonthData)
 
                 const totalRewardData = await TotalRewardsPoint()
                 setTotalRewardsData(totalRewardData)

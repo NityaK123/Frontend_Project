@@ -1,5 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import { calculateRewardsPoint } from '../utils/calculateRewardsPoints'
 
 const MonthlyRewards = ({ data }) => {
 
@@ -21,6 +23,7 @@ const MonthlyRewards = ({ data }) => {
                 <tbody>
                     {
                         data.map((val, index) => {
+                            const rewards = calculateRewardsPoint(val.totalPrice)
                             return (
                                 <tr key={index}>
                                     <td>{index+1}</td>
@@ -29,7 +32,7 @@ const MonthlyRewards = ({ data }) => {
                                     <td>{val.customerName}</td>
                                     <td>{val.month}</td>
                                     <td>{val.totalPrice}</td>
-                                    <td>{0}</td>
+                                    <td>{rewards}</td>
                                 </tr>
                             )
                         })
@@ -39,5 +42,17 @@ const MonthlyRewards = ({ data }) => {
         </div>
     )
 }
+
+MonthlyRewards.propTypes = {
+    data:PropTypes.arrayOf(
+        PropTypes.shape({
+            transactionId:PropTypes.number.isRequired,
+            customerId:PropTypes.number.isRequired,
+            customerName:PropTypes.string.isRequired,
+            month:PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
+            totalPrice:PropTypes.number.isRequired
+        })
+    ).isRequired 
+} 
 
 export default MonthlyRewards;

@@ -1,19 +1,5 @@
 import { fetchData } from "./fetchData"
-
-const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+import { monthNames } from "../constants/monthNames";
 
 async function processData(){
     try {
@@ -31,6 +17,7 @@ async function processData(){
                     transactionId: val.transactionId,
                     customerId: val.customerId,
                     customerName: val.customerName,
+                    date:val.purchaseDate,
                     month: monthNames[(new Date(val.purchaseDate)).getMonth()],
                     totalPrice: val.price,
                     purchaseYear: (new Date(val.purchaseDate)).getFullYear()

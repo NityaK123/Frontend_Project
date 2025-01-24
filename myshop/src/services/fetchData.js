@@ -1,4 +1,3 @@
-
 export const fetchData = async () => {
 
     try {
@@ -11,5 +10,5 @@ export const fetchData = async () => {
     catch (error) {
         console.log(error)
     }
-
 }
+
