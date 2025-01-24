@@ -9,5 +9,6 @@ export const calculateThreeMonthData =(data)=>{
             const date = new Date(val.date) 
             return date > threeMonthago && date <= today
      })
-     return lastthreeMonthData
+     return lastthreeMonthData  
 }
+
