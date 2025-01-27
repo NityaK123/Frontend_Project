@@ -49,7 +49,7 @@ const Home = () => {
     if (error) return <div>{error}</div>
 
     return (
-        <div>
+        <div class="container">
             <Tabs defaultActiveKey="transaction" justify>
                 <Tab eventKey="transaction" title="All Transaction">
                     <Shop data={transactionData} />
