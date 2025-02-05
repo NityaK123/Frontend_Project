@@ -10,3 +10,4 @@ export const fetchData = async()=>{
         return  {type:"Fetch Data Failure",payload:error.message}
     }
 }
+
