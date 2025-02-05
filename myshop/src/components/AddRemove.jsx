@@ -6,7 +6,7 @@ const AddRemove=()=>{
     const data = useSelector(state=>state.value)
     const dispatch = useDispatch() 
 
-    const res = dispatch(fetchData)
+    const res = dispatch(fetchData) 
 
     console.log("res",res)
     res.then((re)=>console.log(re))
@@ -20,4 +20,4 @@ const AddRemove=()=>{
     )
 }
 
-export default AddRemove
+export default AddRemove 
